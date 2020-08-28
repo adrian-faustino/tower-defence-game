@@ -4,12 +4,17 @@ import { Tile } from "../";
 /* Pixi */
 import * as Pixi from "pixi.js";
 /* Constants */
-// import { MAX_ROWS, MAX_COLUMS } from "../../constants/gameConfig";
+import { BOARD_WIDTH, BOARD_HEIGHT } from "../../constants/gameConfig";
 import { tilePath } from "../../constants/imagePaths";
 
 const Gameboard = () => {
   const boardContainerRef = useRef<HTMLDivElement>(null);
-  let app = useRef<Pixi.Application>(new Pixi.Application());
+  let app = useRef<Pixi.Application>(
+    new Pixi.Application({
+      width: BOARD_WIDTH,
+      height: BOARD_HEIGHT,
+    })
+  );
 
   // when component mounts, initialize board
   useEffect(() => {
