@@ -9,19 +9,18 @@ import { tilePath } from "../../constants/imagePaths";
 
 const Gameboard = () => {
   const boardContainerRef = useRef<HTMLDivElement>(null);
-  let app: Pixi.Application;
+  let app = useRef<Pixi.Application>(new Pixi.Application());
 
   // when component mounts, initialize board
   useEffect(() => {
-    app = new Pixi.Application();
-    if (null !== boardContainerRef.current) {
-      boardContainerRef.current.appendChild(app.view);
+    if (boardContainerRef.current && app.current) {
+      boardContainerRef.current.appendChild(app.current.view);
     }
   }, []);
 
   const handleClick = (e: any) => {
     e.preventDefault();
-    app.stage.addChild(Pixi.Sprite.from(tilePath));
+    app.current && app.current.stage.addChild(Pixi.Sprite.from(tilePath));
   };
 
   console.log("Mounted");
