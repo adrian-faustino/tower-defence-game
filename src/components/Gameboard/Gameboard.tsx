@@ -4,7 +4,11 @@ import "./Gameboard.css";
 /* Subcomponents */
 import { Tile } from "../";
 /* Constants */
-import { BOARD_WIDTH, BOARD_HEIGHT } from "../../constants/gameConfig";
+import {
+  BOARD_WIDTH,
+  BOARD_HEIGHT,
+  CANVAS_BG,
+} from "../../constants/gameConfig";
 /* Pixi */
 // import * as Pixi from "pixi.js";
 import { gameHandlers } from "../../game/gameHandlers";
@@ -43,7 +47,7 @@ const Gameboard = () => {
         onClick={handleClick}
         height={BOARD_HEIGHT}
         width={BOARD_WIDTH}
-        style={{ background: "black" }}
+        style={{ background: CANVAS_BG }}
         ref={canvasRef}
       ></canvas>
     </div>

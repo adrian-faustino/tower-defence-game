@@ -22,6 +22,13 @@ export const WALL_TILE: string = "WALL_TILE"; // wall
 export const START_TILE: string = "START_TILE"; // start tile
 export const FINISH_TILE: string = "FINISH_TILE"; // finish
 
+// tile colors
+export const START_TILE_COLOR: string = "green";
+export const FINISH_TILE_COLOR: string = "red";
+export const EMPTY_TILE_COLOR: string = "lightblue";
+export const WALL_TILE_COLOR: string = "black";
+export const CANVAS_BG: string = "grey";
+
 // start/end point coords
 export const START_COORDS: ICoords = { x: 1, y: 1 };
 export const FINISH_COORDS: ICoords = {

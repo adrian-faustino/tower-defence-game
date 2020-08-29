@@ -8,6 +8,11 @@ import {
   EMPTY_TILE,
   START_TILE,
   FINISH_TILE,
+  START_TILE_COLOR,
+  FINISH_TILE_COLOR,
+  EMPTY_TILE_COLOR,
+  WALL_TILE_COLOR,
+  CANVAS_BG,
 } from "../constants/gameConfig";
 import { IBoardCoords } from "../constants/types";
 
@@ -24,15 +29,15 @@ export const drawUtils = (ctx: CanvasRenderingContext2D) => {
   const getMarkColor = (state: string) => {
     switch (state) {
       case EMPTY_TILE:
-        return "lightblue";
+        return EMPTY_TILE_COLOR;
       case WALL_TILE:
-        return "blue";
+        return WALL_TILE_COLOR;
       case START_TILE:
-        return "green";
+        return START_TILE_COLOR;
       case FINISH_TILE:
-        return "red";
+        return FINISH_TILE_COLOR;
       default:
-        return "black";
+        return CANVAS_BG;
     }
   };
 
