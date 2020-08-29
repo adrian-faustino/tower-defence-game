@@ -47,19 +47,19 @@ export class Game {
   };
 
   markTile = (coords: ICoords) => {
-    console.log("Marking tiles..", coords);
+    console.log("Clicked tiles..", coords);
     const clicked_x = coords.x;
     const clicked_y = coords.y;
     // loop through board coords
-    for (let row = 0; row < this.boardCoords.length - 1; row++) {
-      for (let col = 0; col < this.boardCoords[row].length - 1; col++) {
+    for (let row = 0; row < this.boardCoords.length; row++) {
+      for (let col = 0; col < this.boardCoords[row].length; col++) {
         const { x, y } = this.boardCoords[row][col].coords;
 
         if (
-          clicked_x < x &&
-          clicked_x > x - TILE_WIDTH &&
-          clicked_y < y &&
-          clicked_y > y - TILE_HEIGHT
+          clicked_x > x &&
+          clicked_x < x + TILE_WIDTH &&
+          clicked_y > y &&
+          clicked_y < y + TILE_HEIGHT
         ) {
           console.log("match!", this.boardCoords[row][col].coords);
           this.boardCoords[row][col].state = WALL_TILE;
