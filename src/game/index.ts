@@ -60,12 +60,19 @@ export class Game {
 
         // if current coord is within range of click coord...
         if (isWithinParentTile(parentTile.coords, coords)) {
+          // if current tile is start/finish tile, do nothing
+          if (
+            parentTile.state === START_TILE ||
+            parentTile.state === FINISH_TILE
+          )
+            return;
+
           // ...toggle WALL/EMPTY
           const updateTo =
             parentTile.state === WALL_TILE ? EMPTY_TILE : WALL_TILE;
           parentTile.state = updateTo;
           console.log("Updated parent tile:", parentTile);
-          break;
+          return;
         }
       }
     }
