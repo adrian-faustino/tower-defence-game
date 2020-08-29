@@ -50,14 +50,15 @@ export class Game {
 
   // set bg of tile depending on its state
   markTile = (coords: ICoords) => {
-    console.log("Clicked tiles..", coords);
+    console.log("Clicked tile:", coords);
     const clicked_x = coords.x;
     const clicked_y = coords.y;
 
     // loop through board coords...
     for (let row = 0; row < this.boardCoords.length; row++) {
       for (let col = 0; col < this.boardCoords[row].length; col++) {
-        const { x, y } = this.boardCoords[row][col].coords;
+        const parentTile = this.boardCoords[row][col];
+        const { x, y } = parentTile.coords;
 
         // if current coord is within range of click coord...
         if (
@@ -67,7 +68,8 @@ export class Game {
           clicked_y < y + TILE_HEIGHT
         ) {
           // ...toggle WALL/EMPTY
-          this.boardCoords[row][col].state = WALL_TILE;
+          parentTile.state = WALL_TILE;
+          console.log("Updated parent tile:", parentTile);
           break;
         }
       }

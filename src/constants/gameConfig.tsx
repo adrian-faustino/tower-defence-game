@@ -1,4 +1,4 @@
-// import { ICoords } from "../constants/types";
+import { ICoords } from "../constants/types";
 
 // game
 export const FPS: number = 60; // canvas refresh rate
@@ -21,3 +21,10 @@ export const EMPTY_TILE: string = "EMPTY_TILE"; // empty tiles
 export const WALL_TILE: string = "WALL_TILE"; // wall
 export const START_TILE: string = "START_TILE"; // start tile
 export const FINISH_TILE: string = "FINISH_TILE"; // finish
+
+// start/end point coords
+export const START_COORDS: ICoords = { x: 0, y: 0 };
+export const FINISH_COORDS: ICoords = {
+  x: TILE_WIDTH * MAX_COLUMS,
+  y: TILE_HEIGHT * MAX_ROWS,
+};
