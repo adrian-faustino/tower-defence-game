@@ -9,7 +9,8 @@ import {
 } from "../constants/gameConfig";
 import { IBoardCoords } from "../constants/types";
 
-export const gameConfigUtils = () => {
+export const configUtils = () => {
+  // generate tile 2d array that will be stored in new Game class
   const createTileArray = () => {
     const tiles: IBoardCoords = [];
     for (let col = 0; col < MAX_COLUMS; col++) {

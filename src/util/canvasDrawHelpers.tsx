@@ -19,6 +19,8 @@ export const drawUtils = (ctx: CanvasRenderingContext2D) => {
     ctx.closePath();
     ctx.fill();
   };
+
+  // return BG color of each tile depending on its state
   const getMarkColor = (state: string) => {
     switch (state) {
       case EMPTY_TILE:

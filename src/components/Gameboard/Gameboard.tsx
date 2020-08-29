@@ -15,21 +15,23 @@ const Gameboard = () => {
   let game = useRef<Game>();
 
   useEffect(() => {
+    // on mount set canvas context...
     if (null !== canvasRef.current) {
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d");
 
       if (context) {
+        // ...and pass down to new Game instance
         game.current = new Game(context)!;
-        game.current.init();
+        game.current.init(); // start game
       }
     }
   }, []);
 
+  // mark/toggle tile state (wall, empty, etc)
   const handleClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const x = e.clientX - e.currentTarget.offsetLeft;
     const y = e.clientY - e.currentTarget.offsetTop;
-
     game.current?.markTile({ x, y });
   };
 
