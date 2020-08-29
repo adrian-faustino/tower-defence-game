@@ -33,10 +33,14 @@ const Gameboard = () => {
   }, []);
 
   // mark/toggle tile state (wall, empty, etc)
-  const handleClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  const handleDraw = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const x = e.clientX - e.currentTarget.offsetLeft;
     const y = e.clientY - e.currentTarget.offsetTop;
     game.current?.markTile({ x, y });
+  };
+
+  const handleMouseClick = () => {
+    game.current?.toggleDraw();
   };
 
   return (
@@ -44,7 +48,9 @@ const Gameboard = () => {
       <h3>from Gameboard.tsx</h3>
 
       <canvas
-        onClick={handleClick}
+        onMouseDown={handleMouseClick}
+        onMouseUp={handleMouseClick}
+        onMouseMove={handleDraw}
         height={BOARD_HEIGHT}
         width={BOARD_WIDTH}
         style={{ background: CANVAS_BG }}

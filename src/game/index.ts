@@ -26,6 +26,7 @@ export class Game {
     rect: (x: number, y: number, w: number, h: number) => void;
     drawTiles: (coords: IBoardCoords) => void;
   };
+  isDrawing = false;
 
   constructor(ctx: CanvasRenderingContext2D) {
     this.ctx = ctx;
@@ -51,6 +52,7 @@ export class Game {
 
   // set bg of tile depending on its state
   markTile = (coords: ICoords) => {
+    if (!this.isDrawing) return;
     console.log("Clicked tile:", coords);
 
     // loop through board coords...
@@ -76,5 +78,9 @@ export class Game {
         }
       }
     }
+  };
+
+  toggleDraw = () => {
+    this.isDrawing = !this.isDrawing;
   };
 }
