@@ -1,3 +1,5 @@
+// import { ICoords } from "../constants/types";
+
 // gameboard container sizes
 export const BOARD_WIDTH: number = 800;
 export const BOARD_HEIGHT: number = 600;
@@ -16,3 +18,13 @@ export const EMPTY_TILE: string = "EMPTY_TILE"; // empty tiles
 export const WALL_TILELstring = "WALL_TILE"; // wall
 export const START_TILELstring = "START_TILE"; // start tile
 export const FINISH_TILELstring = "FINISH_TILE"; // finish
+
+// export const START_COORDS: ICoords = {
+//   x: 0,
+//   y: 0,
+// };
+
+// export const END_COORDS: ICoords = {
+//   x: BOARD_WIDTH - ,
+//   y: BOARD_HEIGHT,
+// };

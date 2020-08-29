@@ -8,6 +8,7 @@ import { BOARD_WIDTH, BOARD_HEIGHT } from "../../constants/gameConfig";
 /* Pixi */
 // import * as Pixi from "pixi.js";
 import init from "../../game";
+import { gameHandlers } from "../../game/gameHandlers";
 
 const Gameboard = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -26,6 +27,7 @@ const Gameboard = () => {
       <h3>from Gameboard.tsx</h3>
 
       <canvas
+        onClick={gameHandlers.handleCanvasClick}
         height={BOARD_HEIGHT}
         width={BOARD_WIDTH}
         style={{ background: "black" }}
