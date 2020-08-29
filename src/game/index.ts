@@ -1,6 +1,7 @@
 /* Util */
 import { drawUtils } from "../util/canvasDrawHelpers";
 import { configUtils } from "../util/gameConfigHelpers";
+import { isWithinParentTile } from "../util/validationHelpers";
 /* Constants */
 import {
   BOARD_WIDTH,
@@ -61,14 +62,11 @@ export class Game {
         const { x, y } = parentTile.coords;
 
         // if current coord is within range of click coord...
-        if (
-          clicked_x > x &&
-          clicked_x < x + TILE_WIDTH &&
-          clicked_y > y &&
-          clicked_y < y + TILE_HEIGHT
-        ) {
+        if (isWithinParentTile(parentTile.coords, coords)) {
           // ...toggle WALL/EMPTY
-          parentTile.state = WALL_TILE;
+          const updateTo =
+            parentTile.state === WALL_TILE ? EMPTY_TILE : WALL_TILE;
+          parentTile.state = updateTo;
           console.log("Updated parent tile:", parentTile);
           break;
         }
