@@ -23,7 +23,7 @@ export const START_TILE: string = "START_TILE"; // start tile
 export const FINISH_TILE: string = "FINISH_TILE"; // finish
 
 // start/end point coords
-export const START_COORDS: ICoords = { x: 0, y: 0 };
+export const START_COORDS: ICoords = { x: 1, y: 1 };
 export const FINISH_COORDS: ICoords = {
   x: TILE_WIDTH * MAX_COLUMS,
   y: TILE_HEIGHT * MAX_ROWS,
