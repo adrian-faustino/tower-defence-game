@@ -1,7 +1,11 @@
-const handleCanvasClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
+import { IBoardCoords } from "./../constants/types";
+
+const handleCanvasClick = (
+  e: React.MouseEvent<HTMLCanvasElement>,
+  coords: IBoardCoords
+) => {
   const x = e.clientX - e.currentTarget.offsetLeft;
   const y = e.clientY - e.currentTarget.offsetTop;
-  console.log("coords:", x, y);
 };
 
 export const gameHandlers = {

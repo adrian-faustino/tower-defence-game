@@ -21,8 +21,6 @@ export const drawUtils = (ctx: CanvasRenderingContext2D) => {
     coords.forEach((rows) => {
       rows.forEach((tile) => {
         const { x, y } = tile.coords;
-        console.log("x", x);
-        console.log("y", y);
         rect(x, y, TILE_WIDTH, TILE_HEIGHT);
       });
     });

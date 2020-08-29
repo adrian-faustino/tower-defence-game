@@ -7,27 +7,38 @@ import { Tile } from "../";
 import { BOARD_WIDTH, BOARD_HEIGHT } from "../../constants/gameConfig";
 /* Pixi */
 // import * as Pixi from "pixi.js";
-import init from "../../game";
 import { gameHandlers } from "../../game/gameHandlers";
+import { Game } from "../../game/";
 
 const Gameboard = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  let game = useRef<Game>();
 
   useEffect(() => {
     if (null !== canvasRef.current) {
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d");
 
-      context && init(context);
+      if (context) {
+        game.current = new Game(context)!;
+        game.current.init();
+      }
     }
   }, []);
+
+  const handleClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    const x = e.clientX - e.currentTarget.offsetLeft;
+    const y = e.clientY - e.currentTarget.offsetTop;
+
+    game.current?.markTile({ x, y });
+  };
 
   return (
     <div>
       <h3>from Gameboard.tsx</h3>
 
       <canvas
-        onClick={gameHandlers.handleCanvasClick}
+        onClick={handleClick}
         height={BOARD_HEIGHT}
         width={BOARD_WIDTH}
         style={{ background: "black" }}

@@ -3,32 +3,38 @@ import { drawUtils } from "../util/canvasDrawHelpers";
 import { gameConfigUtils } from "../util/gameConfigHelpers";
 /* Constants */
 import { BOARD_WIDTH, BOARD_HEIGHT } from "../constants/gameConfig";
-import { IBoardCoords } from "../constants/types";
+import { IBoardCoords, ICoords } from "../constants/types";
 
-export default (ctx: CanvasRenderingContext2D) => {
-  // constants
-  const _drawUtils = drawUtils(ctx);
-  const _gameConfigUtils = gameConfigUtils();
-  const boardCoords: IBoardCoords = _gameConfigUtils.createTileArray();
-
-  // clear board
-  const clear = () => {
-    ctx.clearRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
+export class Game {
+  ctx: CanvasRenderingContext2D;
+  _gameConfigUtils = gameConfigUtils();
+  boardCoords: IBoardCoords = this._gameConfigUtils.createTileArray();
+  _drawUtils: {
+    rect: (x: number, y: number, w: number, h: number) => void;
+    drawTiles: (coords: IBoardCoords) => void;
   };
 
-  // draw tiles
-  const draw = () => {
-    clear();
-    console.log("Drawing...");
-    ctx.fillStyle = "red";
-    _drawUtils.drawTiles(boardCoords);
-  };
+  constructor(ctx: CanvasRenderingContext2D) {
+    this.ctx = ctx;
+    this._drawUtils = drawUtils(this.ctx);
+  }
 
-  const init = () => {
+  init = () => {
     console.log("Initializing game...");
-    return draw();
-    // return setInterval(draw, 500);
+    return setInterval(this.draw, 500);
   };
 
-  return init();
-};
+  clear = () => {
+    this.ctx.clearRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
+  };
+
+  draw = () => {
+    this.clear();
+    this.ctx.fillStyle = "red";
+    this._drawUtils.drawTiles(this.boardCoords);
+  };
+
+  markTile = (coords: ICoords) => {
+    console.log("Marking tiles..", coords);
+  };
+}
