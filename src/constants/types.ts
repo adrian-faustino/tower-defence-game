@@ -3,7 +3,13 @@ export interface ICoords {
   y: number;
 }
 
+export interface IIndices {
+  row_i: number;
+  col_i: number;
+}
+
 export interface ITile {
+  indices: IIndices;
   coords: ICoords;
   state: string;
 }

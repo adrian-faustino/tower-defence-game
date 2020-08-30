@@ -8,8 +8,8 @@ import {
   TILE_WIDTH,
   TILE_HEIGHT,
   GRID_GAP,
-  START_COORDS,
-  FINISH_COORDS,
+  START_INDICES,
+  FINISH_INDICES,
   WALL_TILE,
 } from "../constants/gameConfig";
 import { IBoardCoords } from "../constants/types";
@@ -27,15 +27,12 @@ export const configUtils = () => {
         const y = row * (TILE_HEIGHT + GRID_GAP);
         const currentTile = { x, y };
         tiles[col][row] = {
+          indices: { row_i: row, col_i: col },
           coords: {
             x,
             y,
           },
-          state: isWithinParentTile(currentTile, START_COORDS)
-            ? START_TILE
-            : isWithinParentTile(currentTile, FINISH_COORDS)
-            ? FINISH_TILE
-            : EMPTY_TILE,
+          state: EMPTY_TILE,
         };
       }
     }

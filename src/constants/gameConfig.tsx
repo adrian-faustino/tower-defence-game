@@ -1,4 +1,4 @@
-import { ICoords } from "../constants/types";
+import { IIndices } from "../constants/types";
 
 // game
 export const FPS: number = 60; // canvas refresh rate
@@ -30,8 +30,13 @@ export const WALL_TILE_COLOR: string = "black";
 export const CANVAS_BG: string = "grey";
 
 // start/end point coords
-export const START_COORDS: ICoords = { x: 1, y: 1 };
-export const FINISH_COORDS: ICoords = {
-  x: TILE_WIDTH * MAX_COLUMS,
-  y: TILE_HEIGHT * MAX_ROWS,
+// export const START_COORDS: ICoords = { x: 1, y: 1 };
+// export const FINISH_COORDS: ICoords = {
+//   x: TILE_WIDTH * MAX_COLUMS,
+//   y: TILE_HEIGHT * MAX_ROWS,
+// };
+export const START_INDICES: IIndices = { row_i: 0, col_i: 0 };
+export const FINISH_INDICES: IIndices = {
+  row_i: MAX_COLUMS - 1,
+  col_i: MAX_ROWS - 1,
 };

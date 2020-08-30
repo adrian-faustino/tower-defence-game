@@ -13,8 +13,6 @@ import {
   START_TILE,
   FINISH_TILE,
   FPS,
-  START_COORDS,
-  FINISH_COORDS,
 } from "../constants/gameConfig";
 import { IBoardCoords, ICoords } from "../constants/types";
 
