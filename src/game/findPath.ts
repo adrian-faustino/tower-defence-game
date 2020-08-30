@@ -2,6 +2,7 @@ import {
   START_INDICES,
   FINISH_INDICES,
   OPEN_TILE,
+  CLOSE_TILE,
 } from "../constants/gameConfig";
 import { IIndices, IBoardCoords } from "../constants/types";
 import { isValidIndices } from "../util/validationHelpers";
@@ -69,18 +70,49 @@ const getNeighbours = (tileIndices: IIndices) => {
   return result;
 };
 
+const distanceBetween2points = (pointA: IIndices, pointB: IIndices) => {
+  const ySquared = Math.pow(pointB.row_i - pointA.row_i, 2);
+  const xSquared = Math.pow(pointB.col_i - pointA.col_i, 2);
+  return Math.sqrt(ySquared + xSquared);
+};
+
+// H cost is the distance from end
+const calc_H = (current: IIndices) => {
+  // distance between 2 points formula
+};
+
+// G cost is the distance from parent
+const calc_G = (parent: IIndices, current: IIndices) => {};
+
 export const findPath = (boardCoords: IBoardCoords | undefined) => {
   if (!boardCoords) return;
   console.log("Finding path...");
   const openendTiles: Array<IIndices> = [START_INDICES];
   const closedtiles: Array<IIndices> = [];
+  let lowestH: number = distanceBetween2points(START_INDICES, FINISH_INDICES);
 
-  // generate neighbours array
-  const neighbours = getNeighbours(START_INDICES);
+  let maxLoops = 20;
 
-  // change neighbours bg color
-  neighbours.forEach((neighbour) => {
-    const { row_i, col_i } = neighbour;
-    boardCoords[row_i][col_i].state = OPEN_TILE;
-  });
+  while (maxLoops > 0) {
+    // generate neighbours array
+    const neighbours = getNeighbours(openendTiles[openendTiles.length - 1]);
+
+    // change neighbours bg color
+    neighbours.forEach((neighbour) => {
+      const { row_i, col_i } = neighbour;
+      const currentTile = boardCoords[row_i][col_i];
+
+      // change tile bg color to yellow
+      currentTile.state = OPEN_TILE;
+
+      // highlight tile with greatest H cost - distance to end
+      const h_cost = distanceBetween2points(neighbour, FINISH_INDICES);
+      if (h_cost <= lowestH) {
+        currentTile.state = CLOSE_TILE;
+        lowestH = h_cost;
+      }
+    });
+
+    maxLoops--;
+  }
 };

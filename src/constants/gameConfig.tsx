@@ -37,7 +37,7 @@ export const CLOSE_TILE_COLOR: string = "red";
 export const CANVAS_BG: string = "grey";
 
 // start/finish points
-export const START_INDICES: IIndices = { row_i: 0, col_i: 0 };
+export const START_INDICES: IIndices = { row_i: 0, col_i: 1 };
 export const FINISH_INDICES: IIndices = {
   row_i: MAX_COLUMS - 1,
   col_i: MAX_ROWS - 1,
