@@ -9,8 +9,8 @@ export const BOARD_HEIGHT: number = 500;
 export const GRID_GAP: number = 0.1; // px
 
 // num of tiles
-export const MAX_ROWS: number = 100;
-export const MAX_COLUMS: number = 100;
+export const MAX_ROWS: number = 20;
+export const MAX_COLUMS: number = 20;
 
 // tils sizes
 export const TILE_WIDTH: number = BOARD_WIDTH / MAX_COLUMS;

@@ -26,7 +26,8 @@ export class Game {
     rect: (x: number, y: number, w: number, h: number) => void;
     drawTiles: (coords: IBoardCoords) => void;
   };
-  isDrawing = false;
+  isDrawing: boolean = false;
+  currentSelectedCell: ICoords | null = null;
 
   constructor(ctx: CanvasRenderingContext2D) {
     this.ctx = ctx;
@@ -52,6 +53,7 @@ export class Game {
 
   // set bg of tile depending on its state
   markTile = (coords: ICoords) => {
+    // only draw if mouse is held down
     if (!this.isDrawing) return;
     console.log("Clicked tile:", coords);
 
@@ -69,10 +71,19 @@ export class Game {
           )
             return;
 
-          // ...toggle WALL/EMPTY
+          // if current coord is still within current tile, do nothing
+          if (
+            this.currentSelectedCell &&
+            isWithinParentTile(this.currentSelectedCell, coords)
+          )
+            return;
+
+          // ... if all validation passes then draw (toggle WALL/EMPTY)
           const updateTo =
             parentTile.state === WALL_TILE ? EMPTY_TILE : WALL_TILE;
           parentTile.state = updateTo;
+          // set clicked coords to new current coords
+          this.currentSelectedCell = parentTile.coords;
           console.log("Updated parent tile:", parentTile);
           return;
         }
