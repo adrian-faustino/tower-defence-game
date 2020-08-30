@@ -15,6 +15,7 @@ import {
 import { IBoardCoords } from "../constants/types";
 /* Util */
 import { isWithinParentTile } from "../util/validationHelpers";
+import Tile from "../constructors/TileObject";
 
 export const configUtils = () => {
   // generate tile 2d array that will be stored in new Game class
@@ -26,14 +27,11 @@ export const configUtils = () => {
         const x = col * (TILE_WIDTH + GRID_GAP);
         const y = row * (TILE_HEIGHT + GRID_GAP);
         const currentTile = { x, y };
-        tiles[col][row] = {
+        tiles[col][row] = Tile({
           indices: { row_i: row, col_i: col },
-          coords: {
-            x,
-            y,
-          },
+          coords: currentTile,
           state: EMPTY_TILE,
-        };
+        });
       }
     }
     console.log("Generated tiles:", tiles);
