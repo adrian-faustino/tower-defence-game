@@ -43,9 +43,16 @@ const Gameboard = () => {
     game.current?.toggleDraw();
   };
 
+  const handleFindPath = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    game.current?.findPath();
+  };
+
   return (
     <div>
       <h3>from Gameboard.tsx</h3>
+
+      <button onClick={handleFindPath}>find path</button>
 
       <canvas
         onMouseDown={handleMouseClick}

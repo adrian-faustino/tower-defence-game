@@ -13,6 +13,8 @@ import {
   START_TILE,
   FINISH_TILE,
   FPS,
+  START_COORDS,
+  FINISH_COORDS,
 } from "../constants/gameConfig";
 import { IBoardCoords, ICoords } from "../constants/types";
 
@@ -55,7 +57,6 @@ export class Game {
   markTile = (coords: ICoords) => {
     // only draw if mouse is held down
     if (!this.isDrawing) return;
-    console.log("Clicked tile:", coords);
 
     // loop through board coords...
     for (let row = 0; row < this.boardCoords.length; row++) {
@@ -64,14 +65,14 @@ export class Game {
 
         // if current coord is within range of click coord...
         if (isWithinParentTile(parentTile.coords, coords)) {
-          // if current tile is start/finish tile, do nothing
+          // if current tile is start/finish tile, do not mark
           if (
             parentTile.state === START_TILE ||
             parentTile.state === FINISH_TILE
           )
             return;
 
-          // if current coord is still within current tile, do nothing
+          // if current coord is still within current tile, do not mark
           if (
             this.currentSelectedCell &&
             isWithinParentTile(this.currentSelectedCell, coords)
@@ -93,5 +94,9 @@ export class Game {
 
   toggleDraw = () => {
     this.isDrawing = !this.isDrawing;
+  };
+
+  findPath = () => {
+    console.log("Finding path...");
   };
 }
