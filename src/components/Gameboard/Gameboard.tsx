@@ -11,8 +11,8 @@ import {
 } from "../../constants/gameConfig";
 /* Pixi */
 // import * as Pixi from "pixi.js";
-import { gameHandlers } from "../../game/gameHandlers";
 import { Game } from "../../game/";
+import { findPath } from "../../game/findPath";
 
 const Gameboard = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -45,7 +45,7 @@ const Gameboard = () => {
 
   const handleFindPath = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    game.current?.findPath();
+    findPath();
   };
 
   return (

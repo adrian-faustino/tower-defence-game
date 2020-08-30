@@ -93,8 +93,4 @@ export class Game {
   toggleDraw = () => {
     this.isDrawing = !this.isDrawing;
   };
-
-  findPath = () => {
-    console.log("Finding path...");
-  };
 }
