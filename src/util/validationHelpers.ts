@@ -1,5 +1,13 @@
+// todo: rename to tileHelpers? To get info on each tile
+
 import { ICoords } from "../constants/types";
-import { TILE_WIDTH, TILE_HEIGHT, GRID_GAP } from "../constants/gameConfig";
+import {
+  TILE_WIDTH,
+  TILE_HEIGHT,
+  GRID_GAP,
+  MAX_COLUMS,
+  MAX_ROWS,
+} from "../constants/gameConfig";
 
 export const isWithinParentTile = (parent: ICoords, child: ICoords) => {
   const { x, y } = parent;
