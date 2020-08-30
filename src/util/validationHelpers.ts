@@ -1,6 +1,5 @@
 // todo: rename to tileHelpers? To get info on each tile
-
-import { ICoords } from "../constants/types";
+import { ICoords, IIndices } from "../constants/types";
 import {
   TILE_WIDTH,
   TILE_HEIGHT,
@@ -22,4 +21,16 @@ export const isWithinParentTile = (parent: ICoords, child: ICoords) => {
   )
     return true;
   return false;
+};
+
+export const isSameTile = (objA: IIndices, objB: IIndices) => {
+  const KEYS = Object.keys(objA);
+
+  for (let key of KEYS) {
+    if (objA[key] !== objB[key]) {
+      return false;
+    }
+  }
+
+  return true;
 };
