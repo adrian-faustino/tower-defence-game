@@ -34,3 +34,14 @@ export const isSameTile = (objA: IIndices, objB: IIndices) => {
 
   return true;
 };
+
+export const isValidIndices = (indices: IIndices) => {
+  const { row_i, col_i } = indices;
+  console.log("Validating", indices);
+
+  // no negative index, or index greater than total row/col
+  if (row_i < 0 || row_i >= MAX_ROWS || col_i < 0 || col_i >= MAX_COLUMS) {
+    return false;
+  }
+  return true;
+};

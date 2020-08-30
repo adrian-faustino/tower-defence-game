@@ -45,7 +45,7 @@ const Gameboard = () => {
 
   const handleFindPath = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    findPath();
+    findPath(game.current?.boardCoords);
   };
 
   return (

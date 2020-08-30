@@ -5,13 +5,17 @@ import {
   TILE_WIDTH,
   TILE_HEIGHT,
   WALL_TILE,
-  EMPTY_TILE,
-  START_TILE,
-  FINISH_TILE,
-  START_TILE_COLOR,
-  FINISH_TILE_COLOR,
-  EMPTY_TILE_COLOR,
   WALL_TILE_COLOR,
+  EMPTY_TILE,
+  EMPTY_TILE_COLOR,
+  START_TILE,
+  START_TILE_COLOR,
+  FINISH_TILE,
+  FINISH_TILE_COLOR,
+  OPEN_TILE,
+  OPEN_TILE_COLOR,
+  CLOSE_TILE,
+  CLOSE_TILE_COLOR,
   CANVAS_BG,
 } from "../constants/gameConfig";
 import { IBoardCoords } from "../constants/types";
@@ -36,6 +40,10 @@ export const drawUtils = (ctx: CanvasRenderingContext2D) => {
         return START_TILE_COLOR;
       case FINISH_TILE:
         return FINISH_TILE_COLOR;
+      case OPEN_TILE:
+        return OPEN_TILE_COLOR;
+      case CLOSE_TILE:
+        return CLOSE_TILE_COLOR;
       default:
         return CANVAS_BG;
     }

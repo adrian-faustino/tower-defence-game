@@ -21,20 +21,22 @@ export const EMPTY_TILE: string = "EMPTY_TILE"; // empty tiles
 export const WALL_TILE: string = "WALL_TILE"; // wall
 export const START_TILE: string = "START_TILE"; // start tile
 export const FINISH_TILE: string = "FINISH_TILE"; // finish
+// tile to be explored (neighbour)
+export const OPEN_TILE: string = "OPEN_TILE";
+// explored tile
+export const CLOSE_TILE: string = "CLOSE_TILE";
 
 // tile colors
 export const START_TILE_COLOR: string = "green";
-export const FINISH_TILE_COLOR: string = "red";
+export const FINISH_TILE_COLOR: string = "purple";
 export const EMPTY_TILE_COLOR: string = "lightblue";
 export const WALL_TILE_COLOR: string = "black";
+export const OPEN_TILE_COLOR: string = "yellow";
+export const CLOSE_TILE_COLOR: string = "red";
+
 export const CANVAS_BG: string = "grey";
 
-// start/end point coords
-// export const START_COORDS: ICoords = { x: 1, y: 1 };
-// export const FINISH_COORDS: ICoords = {
-//   x: TILE_WIDTH * MAX_COLUMS,
-//   y: TILE_HEIGHT * MAX_ROWS,
-// };
+// start/finish points
 export const START_INDICES: IIndices = { row_i: 0, col_i: 0 };
 export const FINISH_INDICES: IIndices = {
   row_i: MAX_COLUMS - 1,
