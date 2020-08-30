@@ -26,11 +26,13 @@ export const isWithinParentTile = (parent: ICoords, child: ICoords) => {
 export const isSameTile = (objA: IIndices, objB: IIndices) => {
   const KEYS = Object.keys(objA);
 
-  for (let key of KEYS) {
-    if (objA[key] !== objB[key]) {
-      return false;
-    }
-  }
+  // for (let key of KEYS) {
+  //   if (objA[key] !== objB[key]) {
+  //     console.log("not the same");
+  //     return false;
+  //   }
+  // }
+  if (objA.col_i !== objB.col_i || objA.row_i !== objB.row_i) return false;
 
   return true;
 };
@@ -41,7 +43,9 @@ export const isValidIndices = (indices: IIndices) => {
 
   // no negative index, or index greater than total row/col
   if (row_i < 0 || row_i >= MAX_ROWS || col_i < 0 || col_i >= MAX_COLUMS) {
+    console.log("Invalid.");
     return false;
   }
+  console.log("Valid.");
   return true;
 };

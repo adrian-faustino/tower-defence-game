@@ -5,7 +5,7 @@ import {
   CLOSE_TILE,
 } from "../constants/gameConfig";
 import { IIndices, IBoardCoords } from "../constants/types";
-import { isValidIndices } from "../util/validationHelpers";
+import { isValidIndices, isSameTile } from "../util/validationHelpers";
 
 // indices constructor
 const indices = (row: number, col: number) => {
@@ -76,14 +76,6 @@ const distanceBetween2points = (pointA: IIndices, pointB: IIndices) => {
   return Math.sqrt(ySquared + xSquared);
 };
 
-// H cost is the distance from end
-const calc_H = (current: IIndices) => {
-  // distance between 2 points formula
-};
-
-// G cost is the distance from parent
-const calc_G = (parent: IIndices, current: IIndices) => {};
-
 export const findPath = (boardCoords: IBoardCoords | undefined) => {
   if (!boardCoords) return;
   console.log("Finding path...");
@@ -91,7 +83,7 @@ export const findPath = (boardCoords: IBoardCoords | undefined) => {
   const closedtiles: Array<IIndices> = [];
   let lowestH: number = distanceBetween2points(START_INDICES, FINISH_INDICES);
 
-  let maxLoops = 20;
+  let maxLoops = 2;
 
   while (maxLoops > 0) {
     // generate neighbours array
@@ -100,7 +92,7 @@ export const findPath = (boardCoords: IBoardCoords | undefined) => {
     // change neighbours bg color
     neighbours.forEach((neighbour) => {
       const { row_i, col_i } = neighbour;
-      const currentTile = boardCoords[row_i][col_i];
+      const currentTile = boardCoords[col_i][row_i];
 
       // change tile bg color to yellow
       currentTile.state = OPEN_TILE;
@@ -111,8 +103,16 @@ export const findPath = (boardCoords: IBoardCoords | undefined) => {
         currentTile.state = CLOSE_TILE;
         lowestH = h_cost;
       }
+
+      // end loop once end tile is within neighbor vicinity
+      if (isSameTile(neighbour, FINISH_INDICES)) {
+        alert("Found!");
+        return;
+      }
     });
 
     maxLoops--;
   }
+
+  console.log("Current board:", boardCoords);
 };

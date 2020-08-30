@@ -91,6 +91,7 @@ export class Game {
   };
 
   toggleDraw = () => {
+    console.log();
     this.isDrawing = !this.isDrawing;
   };
 }
