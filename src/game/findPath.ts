@@ -106,9 +106,10 @@ export const findPath = (boardCoords: IBoardCoords | undefined) => {
   let openedTiles: Array<IIndices> = [START_INDICES]; // 'neighbours' to the current tile
   let closedTiles: Array<IIndices> = []; // tiles that have been explored and won't be revisited
   let lowestFcost: number;
+  let lowestHcost: number;
   let currentTile: IIndices = openedTiles[0];
   let found: boolean = false;
-  let maxLoops = 500;
+  let maxLoops = 3000;
   let parent: IIndices = START_INDICES;
 
   while (maxLoops > 0 && !found) {
@@ -124,7 +125,10 @@ export const findPath = (boardCoords: IBoardCoords | undefined) => {
     moveFromArrayAtoB(openedTiles, closedTiles, currentTile);
 
     // populate list with neighbours
-    openedTiles = getNeighbours(boardCoords, currentTile);
+    openedTiles = [
+      ...openedTiles,
+      getNeighbours(boardCoords, currentTile),
+    ].flat();
 
     // find lowest F cost out of all neighbours
     openedTiles.forEach((tile, i) => {
@@ -143,9 +147,13 @@ export const findPath = (boardCoords: IBoardCoords | undefined) => {
       // update lowest f cost to current
       if (i === 0) {
         lowestFcost = f_cost;
+        lowestHcost = h_cost;
         currentTile = tile;
-      } else if (f_cost < lowestFcost && !isSameTile(currentTile, parent)) {
+      } else if (f_cost < lowestFcost) {
         lowestFcost = f_cost;
+        currentTile = tile;
+      } else if (h_cost < lowestHcost) {
+        lowestHcost = h_cost;
         currentTile = tile;
       }
     });
