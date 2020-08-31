@@ -9,8 +9,8 @@ export const BOARD_HEIGHT: number = 500;
 export const GRID_GAP: number = 0.1; // px
 
 // num of tiles
-export const MAX_ROWS: number = 20;
-export const MAX_COLUMS: number = 20;
+export const MAX_ROWS: number = 30;
+export const MAX_COLUMS: number = 30;
 
 // tils sizes
 export const TILE_WIDTH: number = BOARD_WIDTH / MAX_COLUMS;
@@ -39,6 +39,6 @@ export const CANVAS_BG: string = "grey";
 // start/finish points
 export const START_INDICES: IIndices = { row_i: 1, col_i: 5 };
 export const FINISH_INDICES: IIndices = {
-  row_i: MAX_COLUMS - 1,
-  col_i: MAX_ROWS - 1,
+  row_i: MAX_COLUMS - 2,
+  col_i: MAX_ROWS - 5,
 };

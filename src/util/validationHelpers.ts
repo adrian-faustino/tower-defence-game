@@ -1,11 +1,13 @@
 // todo: rename to tileHelpers? To get info on each tile
-import { ICoords, IIndices } from "../constants/types";
+import { ICoords, IIndices, IBoardCoords } from "../constants/types";
 import {
   TILE_WIDTH,
   TILE_HEIGHT,
   GRID_GAP,
   MAX_COLUMS,
   MAX_ROWS,
+  WALL_TILE,
+  CLOSE_TILE,
 } from "../constants/gameConfig";
 
 export const isWithinParentTile = (parent: ICoords, child: ICoords) => {
@@ -37,16 +39,23 @@ export const isSameTile = (objA: IIndices, objB: IIndices) => {
   return true;
 };
 
-export const isValidIndices = (indices: IIndices) => {
+export const isValidIndices = (
+  boardCoords: IBoardCoords,
+  indices: IIndices
+) => {
   const { row_i, col_i } = indices;
-  console.log("Validating", indices);
 
   // no negative index, or index greater than total row/col
-  if (row_i < 0 || row_i >= MAX_ROWS || col_i < 0 || col_i >= MAX_COLUMS) {
-    console.log("Invalid.");
+  if (
+    row_i < 0 ||
+    row_i >= MAX_ROWS ||
+    col_i < 0 ||
+    col_i >= MAX_COLUMS ||
+    boardCoords[col_i][row_i].state === WALL_TILE ||
+    boardCoords[col_i][row_i].state === CLOSE_TILE
+  ) {
     return false;
   }
-  console.log("Valid.");
   return true;
 };
 
@@ -56,6 +65,5 @@ export const indicesInArray = (indices: IIndices, arr: Array<IIndices>) => {
       return true;
     }
   });
-  console.log("Indices in array?", result);
   return result;
 };
