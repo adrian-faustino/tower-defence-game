@@ -108,10 +108,16 @@ export const findPath = (boardCoords: IBoardCoords | undefined) => {
   let lowestFcost: number;
   let currentTile: IIndices = openedTiles[0];
   let found: boolean = false;
-  // let maxLoops = 5;
+  let maxLoops = 500;
   let parent: IIndices = START_INDICES;
 
-  while (!found) {
+  while (maxLoops > 0 && !found) {
+    // if end point is within neighbor, end loop
+    if (indicesInArray(FINISH_INDICES, openedTiles)) {
+      found = true;
+      return;
+    }
+
     parent = currentTile;
 
     // remove current tile and add to closed
@@ -119,11 +125,6 @@ export const findPath = (boardCoords: IBoardCoords | undefined) => {
 
     // populate list with neighbours
     openedTiles = getNeighbours(boardCoords, currentTile);
-
-    // if end point is within neighbor, end loop
-    if (indicesInArray(FINISH_INDICES, openedTiles)) {
-      found = true;
-    }
 
     // find lowest F cost out of all neighbours
     openedTiles.forEach((tile, i) => {
@@ -157,7 +158,7 @@ export const findPath = (boardCoords: IBoardCoords | undefined) => {
     console.log("Closed list:", closedTiles);
     console.log("Open list:", openedTiles);
 
-    // maxLoops--;
+    maxLoops--;
   }
 
   // while (maxLoops > 0) {
