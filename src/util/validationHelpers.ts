@@ -49,3 +49,13 @@ export const isValidIndices = (indices: IIndices) => {
   console.log("Valid.");
   return true;
 };
+
+export const indicesInArray = (indices: IIndices, arr: Array<IIndices>) => {
+  const result = arr.find(({ col_i, row_i }) => {
+    if (col_i === indices.col_i && row_i === indices.row_i) {
+      return true;
+    }
+  });
+  console.log("Indices in array?", result);
+  return result;
+};

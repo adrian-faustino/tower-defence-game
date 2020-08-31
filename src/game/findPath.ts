@@ -5,7 +5,11 @@ import {
   CLOSE_TILE,
 } from "../constants/gameConfig";
 import { IIndices, IBoardCoords } from "../constants/types";
-import { isValidIndices, isSameTile } from "../util/validationHelpers";
+import {
+  isValidIndices,
+  isSameTile,
+  indicesInArray,
+} from "../util/validationHelpers";
 
 // indices constructor
 const indices = (row: number, col: number) => {
@@ -13,7 +17,7 @@ const indices = (row: number, col: number) => {
 };
 
 // return list of indices
-const getNeighbours = (tileIndices: IIndices) => {
+const getNeighbours = (tileIndices: IIndices): Array<IIndices> => {
   const { row_i, col_i } = tileIndices;
   const result: Array<IIndices> = [];
   let _indices: IIndices;
@@ -76,43 +80,101 @@ const distanceBetween2points = (pointA: IIndices, pointB: IIndices) => {
   return Math.sqrt(ySquared + xSquared);
 };
 
+const moveFromArrayAtoB = (
+  arrayA: IIndices[],
+  arrayB: IIndices[],
+  obj: IIndices
+) => {
+  const index = arrayA.findIndex(
+    (e) => e.col_i === obj.col_i && e.row_i === obj.row_i
+  );
+
+  // remove from A
+  arrayA.splice(index, 1);
+
+  // add to B
+  arrayB.push(obj);
+};
+
 export const findPath = (boardCoords: IBoardCoords | undefined) => {
   if (!boardCoords) return;
   console.log("Finding path...");
-  const openendTiles: Array<IIndices> = [START_INDICES];
-  const closedtiles: Array<IIndices> = [];
-  let lowestH: number = distanceBetween2points(START_INDICES, FINISH_INDICES);
+  let openedTiles: Array<IIndices> = [START_INDICES]; // 'neighbours' to the current tile
+  let closedTiles: Array<IIndices> = []; // tiles that have been explored and won't be revisited
+  let lowestFcost: number;
+  let currentTile: IIndices = openedTiles[0];
+  let found: boolean = false;
 
-  let maxLoops = 2;
+  while (!found) {
+    // add current tile to closedTiles
+    closedTiles.push(currentTile);
 
-  while (maxLoops > 0) {
-    // generate neighbours array
-    const neighbours = getNeighbours(openendTiles[openendTiles.length - 1]);
+    // remove current tile and add to closed
+    moveFromArrayAtoB(openedTiles, closedTiles, currentTile);
 
-    // change neighbours bg color
-    neighbours.forEach((neighbour) => {
-      const { row_i, col_i } = neighbour;
-      const currentTile = boardCoords[col_i][row_i];
+    // populate list with neighbours
+    openedTiles = getNeighbours(currentTile);
 
-      // change tile bg color to yellow
-      currentTile.state = OPEN_TILE;
+    // if end point is within neighbor, end loop
+    if (indicesInArray(FINISH_INDICES, openedTiles)) {
+      found = true;
+    }
 
-      // highlight tile with greatest H cost - distance to end
-      const h_cost = distanceBetween2points(neighbour, FINISH_INDICES);
-      if (h_cost <= lowestH) {
-        currentTile.state = CLOSE_TILE;
-        lowestH = h_cost;
-      }
+    // find lowest F cost out of all neighbours
+    openedTiles.forEach((tile, i) => {
+      // if current tile is in closed, ignore
+      if (indicesInArray(tile, closedTiles)) return;
 
-      // end loop once end tile is within neighbor vicinity
-      if (isSameTile(neighbour, FINISH_INDICES)) {
-        alert("Found!");
-        return;
+      const tileObj = boardCoords[tile.col_i][tile.row_i];
+      tileObj.state = OPEN_TILE;
+
+      const g_cost = distanceBetween2points(tile, START_INDICES);
+      const h_cost = distanceBetween2points(tile, FINISH_INDICES);
+      const f_cost = g_cost + h_cost;
+      if (i === 0) {
+        lowestFcost = f_cost;
+        currentTile = tile;
+      } else if (f_cost < lowestFcost) {
+        lowestFcost = f_cost;
+        currentTile = tile;
       }
     });
 
-    maxLoops--;
+    // mark lowest F cost as red
+    boardCoords[currentTile.col_i][currentTile.row_i].state = CLOSE_TILE;
   }
+  alert("found!");
 
-  console.log("Current board:", boardCoords);
+  // while (maxLoops > 0) {
+  //   // generate neighbours array
+  //   const neighbours = getNeighbours(openendTiles[openendTiles.length - 1]);
+
+  //   // change neighbours bg color
+  //   neighbours.forEach((neighbour) => {
+  //     const { row_i, col_i } = neighbour;
+  //     const currentTile = boardCoords[col_i][row_i];
+
+  //     // change tile bg color to yellow
+  //     currentTile.state = OPEN_TILE;
+
+  //     // highlight tile with greatest H cost - distance to end
+  //     const h_cost = distanceBetween2points(neighbour, FINISH_INDICES);
+  //     if (h_cost <= lowestH) {
+  //       currentTile.state = CLOSE_TILE;
+  //       lowestH = h_cost;
+  //     }
+
+  //     const g_cost = distanceBetween2points(neighbour, START_INDICES);
+
+  //     const f_cost = h_cost+ g_cost;
+
+  //     // end loop once end tile is within neighbor vicinity
+  //     if (isSameTile(neighbour, FINISH_INDICES)) {
+  //       alert("Found!");
+  //       return;
+  //     }
+  //   });
+
+  //   maxLoops--;
+  // }
 };
